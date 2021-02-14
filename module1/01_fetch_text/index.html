@@ -4,11 +4,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Train: Data/APIs 1</title>
-  <script defer src="script.js"></script>
+  <title>Coding Train: fetching text</title>
 </head>
 <body>
   <h1>Fetch a Poem</h1>
   <p id="poem"></p>
+  <script>
+    async function fetchPoem() {
+      const response = await fetch('poem.txt');
+      return await response.text();
+    }
+
+    fetchPoem()
+    .then((poem) => {
+      console.log('succeeded!');
+      document.getElementById('poem').innerHTML = poem;
+    })
+    .catch((error) => {
+      console.log('failed!');
+      console.error(error);
+    });
+  </script>
 </body>
 </html>

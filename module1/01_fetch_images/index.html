@@ -4,10 +4,37 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Train: Data/APIs 1</title>
-  <script defer src="script.js"></script>
+  <title>Coding Train: fetching images in array</title>
 </head>
 <body>
   <h1>Fetch Families</h1>
+  <script>
+    const filenames = [
+      'images/dunphy.jpg',
+      'images/mitchell.jpg',
+      'images/jay.jpg',
+    ];
+
+    async function fetchFamilies(families) {
+      for (family of families) {
+        const response = await fetch(family);
+        const blob = await response.blob();
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(blob);
+        img.width = 600;
+        document.body.appendChild(img);
+      }
+    }
+
+    fetchFamilies(filenames)
+      .then((response) => {
+        console.log('succeeded!');
+      })
+      .catch((error) => {
+        console.log('failed!');
+        console.error(error);
+      });
+
+  </script>
 </body>
 </html>
