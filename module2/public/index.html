@@ -7,36 +7,46 @@
   <title>Document</title>
 </head>
 <body>
-  <script>
-    if ('geolocation' in navigator) {
-      console.log('geolocation available');
-      navigator.geolocation.getCurrentPosition(async position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        document.getElementById('latitude').textContent = lat;
-        document.getElementById('longitude').textContent = lon;
-
-        const data ={ lat, lon }; // data which is sent to server
-        const options = {
-          method: 'POST', // package as a POST
-          headers: { // meta information
-            'Content-Type': 'application/json' 
-          },
-          body: JSON.stringify(data) // packaging up all of the data
-        };
-
-        const response = await fetch('/api', options); // send it to the endpoint
-        const json = await response.json(); // get response from the server
-        console.log(json)
-
-      });
-    } else {
-      console.log('geolocation not available');
-    }
-  </script>
-
   <h1>Data Selfie App</h1>
   <p>latitude: <span id="latitude"></span>&deg;</p>
   <p>longitude: <span id="longitude"></span>&deg;</p>
+  <button id='btn1'>Get Geolocation</button>
+  <button id='btn2'>Send to Server</button>
+
+  <script>
+    let lat, lon;
+    const loadDataForClient = document.getElementById('btn1');
+    const sendDataToServer = document.getElementById('btn2');
+
+    loadDataForClient.addEventListener('click', () => {
+      if ('geolocation' in navigator) {
+        console.log('geolocation available');
+        navigator.geolocation.getCurrentPosition(async position => {
+          lat = position.coords.latitude;
+          lon = position.coords.longitude;
+          document.getElementById('latitude').textContent = lat;
+          document.getElementById('longitude').textContent = lon;
+        });
+      } else {
+        console.log('geolocation not available');
+      }
+    });
+
+    sendDataToServer.addEventListener('click', async () => {
+      const data ={ lat, lon }; // data which is sent to server
+      const options = {
+        method: 'POST', // package as a POST
+        headers: { // meta information
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(data) // packaging up all of the data
+      };
+
+      const response = await fetch('/api', options); // send it to the endpoint
+      const json = await response.json(); // get response from the server
+      console.log(json)
+    });
+
+  </script>
 </body>
 </html>
