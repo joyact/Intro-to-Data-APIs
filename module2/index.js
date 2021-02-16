@@ -1,3 +1,4 @@
+const { request, response } = require('express');
 const express = require('express'); // create a web server
 const Datastore = require('nedb'); // create a database
 
@@ -22,10 +23,16 @@ app.post('/api', (request, response) => {
   database.insert(data); // insert data to database
 
   // send back to client
-  response.json({
-    status: 'success',
-    timestamp: timestamp,
-    latitude: data.lat,
-    longitudt: data.lon,
+  response.json(data);
+});
+
+// query the database and send it to client
+app.get('/api', (request, response) => {
+  database.find({}, (err, data) => {
+    if (err) {
+      response.end();
+      return;
+    }
+    response.json(data);
   });
 });
