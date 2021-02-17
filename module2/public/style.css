@@ -1,0 +1,21 @@
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #888;
+  color: #fff;
+  border-radius: 5px;
+  outline: 0;
+  border: 0;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding-left: 10px;
+}
