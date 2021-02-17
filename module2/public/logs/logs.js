@@ -5,15 +5,19 @@ async function getData() {
   const data = await response.json();
 
   for (item of data) {
-    const list = document.createElement('ul');
-    const geo = document.createElement('li');
-    const date = document.createElement('li');
+    const list = document.createElement('div');
+    const geo = document.createElement('p');
+    const date = document.createElement('p');
+    const mood = document.createElement('p');
+    const image = document.createElement('img');
+    const dateString = new Date(item.timestamp).toLocaleDateString();
 
     geo.textContent = `lat : ${item.lat}°, lon : ${item.lon}°`;
-    const dateString = new Date(item.timestamp).toLocaleString();
     date.textContent = dateString;
+    mood.textContent = `mood: ${item.mood}`;
+    image.src = item.image64;
 
-    list.append(geo, date);
+    list.append(geo, date, mood, image);
     Container.append(list);
   }
 }
