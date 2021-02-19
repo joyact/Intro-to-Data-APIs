@@ -10,10 +10,10 @@ if ('geolocation' in navigator) {
 
     // To prevent the API key exposed in the client side.
     // set up a proxy server(call API in the server side)
-    // const api_url = `weather/${lat},${lon}`; // weather : the endpoint
-    // const response = await fetch(api_url);
-    // const json = await response.json();
-    // console.log(json);
+    const api_url = `weather/${lat},${lon}`; // weather : the endpoint
+    const response = await fetch(api_url);
+    const json = await response.json();
+    console.log(json);
   });
 } else {
   console.log('geolocation not available');
