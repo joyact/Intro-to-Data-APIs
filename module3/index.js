@@ -26,3 +26,12 @@ app.post('/api', (request, response) => {
   database.insert(data);
   response.json(data);
 });
+
+// the server is a proxy for openweathermap
+// make the API call from here and send it back to client
+app.get('/weather', async (request, response) => {
+  const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=37.497246&lon=126.9460462&appid=9916e4e6fd6079aa9a9fec8e0c218fc5`;
+  const fetch_response = await fetch(api_url);
+  const json = await fetch_response.json();
+  response.json(json);
+});

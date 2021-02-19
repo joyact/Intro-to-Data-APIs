@@ -1,12 +1,19 @@
 let lat, lon;
 if ('geolocation' in navigator) {
   console.log('geolocation available');
-  navigator.geolocation.getCurrentPosition((position) => {
+  navigator.geolocation.getCurrentPosition(async (position) => {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
     console.log(lat, lon);
     document.getElementById('latitude').textContent = lat.toFixed(2);
     document.getElementById('longitude').textContent = lon.toFixed(2);
+
+    // To prevent the API key exposed in the client side.
+    // set up a proxy server(call API in the server side)
+    // const api_url = `weather/${lat},${lon}`; // weather : the endpoint
+    // const response = await fetch(api_url);
+    // const json = await response.json();
+    // console.log(json);
   });
 } else {
   console.log('geolocation not available');
