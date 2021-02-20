@@ -14,10 +14,15 @@ if ('geolocation' in navigator) {
     const response = await fetch(api_url);
     const json = await response.json();
 
-    document.getElementById('description').textContent = json.weather[0].main;
-    document.getElementById('temperature').textContent = json.main.temp;
-    console.log(json);
-    console.log(json.weather);
+    const weatherData = json.weather;
+    const aqData = json.air_quailty.list[0].components;
+
+    document.getElementById('description').textContent =
+      weatherData.weather[0].main;
+    document.getElementById('temperature').textContent = weatherData.main.temp;
+    document.getElementById('co').textContent = aqData.co;
+    document.getElementById('no').textContent = aqData.no;
+    console.log(aqData);
   });
 } else {
   console.log('geolocation not available');

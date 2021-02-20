@@ -41,12 +41,24 @@ app.get('/weather/:latlon', async (request, response) => {
   console.log(latlon);
   console.log(lat, lon);
 
+  const key = '9916e4e6fd6079aa9a9fec8e0c218fc5';
   // 1. the client 'lat, lon' -> the server
   // 2. the server 'lat, lon' -> the weather API
   // 3. the weather API 'weather' -> the server
   // 4. the server 'weather' -> the client
-  const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=9916e4e6fd6079aa9a9fec8e0c218fc5`;
-  const fetch_response = await fetch(api_url);
-  const json = await fetch_response.json();
-  response.json(json);
+  const weather_url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`;
+  const weather_response = await fetch(weather_url);
+  const weather_data = await weather_response.json();
+
+  const aq_url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${key}`;
+  const aq_response = await fetch(aq_url);
+  const aq_data = await aq_response.json();
+
+  // Get multiple APIs
+  const data = {
+    weather: weather_data,
+    air_quailty: aq_data,
+  };
+
+  response.json(data);
 });
