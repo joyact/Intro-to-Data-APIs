@@ -13,7 +13,11 @@ if ('geolocation' in navigator) {
     const api_url = `weather/${lat},${lon}`; // weather : the endpoint
     const response = await fetch(api_url);
     const json = await response.json();
+
+    document.getElementById('description').textContent = json.weather[0].main;
+    document.getElementById('temperature').textContent = json.main.temp;
     console.log(json);
+    console.log(json.weather);
   });
 } else {
   console.log('geolocation not available');
